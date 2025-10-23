@@ -1,4 +1,4 @@
-namespace MyFirstWebAPIProject
+namespace WebApplicationPractice
 {
     public class Program
     {
