@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApplicationPractice.Models;
 
 namespace WebApplicationPractice.Controllers
@@ -11,10 +10,10 @@ namespace WebApplicationPractice.Controllers
 
         public static List<Employee> employee = new List<Employee>
         {
-            new Employee { Id = 1, Name = "Sumit", Email = "sumit@1234", Phone = 9697988854 },
-            new Employee { Id = 2, Name = "Amit", Email = "amit@1234", Phone = 9697988854 },
-            new Employee { Id = 3, Name = "Pranit", Email = "pranit@1234", Phone = 9697988854 },
-            new Employee { Id = 4, Name = "Sujit", Email = "sujit@1234", Phone = 9697988854 },
+            new() { Id = 1, Name = "Sumit", Email = "sumit@1234", Phone = 9697988854 },
+            new() { Id = 2, Name = "Amit", Email = "amit@1234", Phone = 9697988854 },
+            new() { Id = 3, Name = "Pranit", Email = "pranit@1234", Phone = 9697988854 },
+            new() { Id = 4, Name = "Sujit", Email = "sujit@1234", Phone = 9697988854 },
         };
 
         [HttpGet]
