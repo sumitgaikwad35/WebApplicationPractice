@@ -1,3 +1,5 @@
+using WebApplicationPractice.Services;
+
 namespace WebApplicationPractice
 {
     public class Program
@@ -9,6 +11,7 @@ namespace WebApplicationPractice
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddSingleton<IEmployeeServices , EmployeeServices>();
 
             var app = builder.Build();
 
