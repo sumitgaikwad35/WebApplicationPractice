@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplicationPractice.Models;
+using WebApplicationPractice.Services;
 
 namespace WebApplicationPractice.Controllers
 {
@@ -8,63 +9,68 @@ namespace WebApplicationPractice.Controllers
     public class EmployeeController : ControllerBase
     {
 
-        public static List<Employee> employee = new List<Employee>
+        private readonly IEmployeeServices _employeeService;
+
+        public EmployeeController(IEmployeeServices employeeService)
         {
-            new() { Id = 1, Name = "Sumit", Email = "sumit@1234", Phone = 9697988854 },
-            new() { Id = 2, Name = "Amit", Email = "amit@1234", Phone = 9697988854 },
-            new() { Id = 3, Name = "Pranit", Email = "pranit@1234", Phone = 9697988854 },
-            new() { Id = 4, Name = "Sujit", Email = "sujit@1234", Phone = 9697988854 },
-        };
+            _employeeService = employeeService;
+        }
 
         [HttpGet]
         public ActionResult<List<Employee>> GetAllEmployee()
         {
-            return Ok(employee);
+            
+            return Ok(_employeeService.GetAllEmployees());
         }
 
+        //[HttpGet("by-id")]
+        //public ActionResult<Employee> GetEmployeeById([FromQuery] int id)
+        //{
+        //    var emp = _employeeService.GetEmployeeById(id);
+        //    if (emp == null)
+        //        return NotFound("Employee not found");
+
+        //    return Ok(emp);
+        //}
         [HttpGet("{id}")]
         public ActionResult<Employee> GetEmployeeById(int id)
         {
-            var emp = employee.FirstOrDefault(n => n.Id == id);
+            var emp = _employeeService.GetEmployeeById(id);
+            if (emp == null)
+                return NotFound("Employee not found");
+
             return Ok(emp);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteEmployeeById(int id)
         {
-            var emp = employee.FirstOrDefault(n => n.Id == id);
-            if(emp == null)
+            var emp = _employeeService.DeleteEmployee(id);
+            if(emp == false)
             {
                 return BadRequest("Employee not found");
             }
-            employee.Remove(emp);
+            
             return Ok();
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateEmployeeById(int id, Employee e)
         {
-            var emp = employee.FirstOrDefault(s  => s.Id == id);
-            if(emp != null)
-            {
-                emp.Id = id;
-                emp.Name = e.Name;
-                emp.Email = e.Email;
-                emp.Phone = e.Phone;
-            }
-            else
+            var emp = _employeeService.UpdateEmployee(id, e);   
+            if(emp == false)
             {
                 return BadRequest("Employee Not Found");
             }
-                return Ok();
+      
+            return Ok();
         }
 
         [HttpPost]
         public ActionResult AddEmployee(Employee newEmployee)
         {
-            newEmployee.Id = employee.Any() ? employee.Max(e => e.Id) + 1 : 1;
-            employee.Add(newEmployee);
-            return Ok(employee);
+            var emp = _employeeService.AddEmployee(newEmployee);
+            return Ok(emp);
         }
     }
 }
