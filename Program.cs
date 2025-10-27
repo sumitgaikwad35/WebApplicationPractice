@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using WebApplicationPractice.Data;
 using WebApplicationPractice.Services;
-
 
 namespace WebApplicationPractice
 {
@@ -12,21 +8,10 @@ namespace WebApplicationPractice
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug() 
-    .WriteTo.Console()    
-    .WriteTo.File("logs/myapp.log", rollingInterval: RollingInterval.Day) 
-    .CreateLogger();
-
-           
-            builder.Host.UseSerilog();
-
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<IEmployeeServices , EmployeeDbServices>();
-            //builder.Services.AddSingleton<IEmployeeServices , EmployeeServices>();
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddSingleton<IEmployeeServices , EmployeeServices>();
 
             var app = builder.Build();
 

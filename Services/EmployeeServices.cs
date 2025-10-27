@@ -6,10 +6,10 @@ namespace WebApplicationPractice.Services
     {
         private readonly List<Employee> employee = new List<Employee>
         {
-            new() { Id = 1, Name = "Sumit", Email = "sumit@1234", Phone = 9697988854 ,Salary = 15000 , DeptName = "Trainee"},
-            new() { Id = 2, Name = "Amit", Email = "amit@1234", Phone = 9697988854 ,Salary = 35000 , DeptName = "HelpDesk" },
-            new() { Id = 3, Name = "Pranit", Email = "pranit@1234", Phone = 9697988854 ,Salary = 75000 , DeptName = "HR"},
-            new() { Id = 4, Name = "Sujit", Email = "sujit@1234", Phone = 8697988854 ,Salary = 45000 , DeptName = "IT"},
+            new() { Id = 1, Name = "Sumit", Email = "sumit@1234", Phone = 9697988854 },
+            new() { Id = 2, Name = "Amit", Email = "amit@1234", Phone = 9697988854 },
+            new() { Id = 3, Name = "Pranit", Email = "pranit@1234", Phone = 9697988854 },
+            new() { Id = 4, Name = "Sujit", Email = "sujit@1234", Phone = 8697988854 },
         };
 
         public List<Employee> GetAllEmployees()
@@ -48,5 +48,7 @@ namespace WebApplicationPractice.Services
             employee.Remove(existing);
             return true;
         }
+
+        
     }
 }
