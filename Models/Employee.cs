@@ -15,5 +15,8 @@ namespace WebApplicationPractice.Models
 
         [Range(9000000000, 9999999999, ErrorMessage = "Only Maharashtra numbers are required")]
         public double Phone { get; set; }
+
+        public long Salary {  get; set; }   
+        public string? DeptName { get; set; }
     }
 }
