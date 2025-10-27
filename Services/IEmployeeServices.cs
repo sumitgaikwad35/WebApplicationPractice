@@ -9,5 +9,7 @@ namespace WebApplicationPractice.Services
         Employee AddEmployee(Employee employee);    
         bool UpdateEmployee(int id, Employee employee);
         bool DeleteEmployee(int id);
+
+        
     }
 }
