@@ -10,17 +10,24 @@ namespace WebApplicationPractice.Controllers
     {
 
         private readonly IEmployeeServices _employeeService;
+        private readonly ILogger _logger;
 
-        public EmployeeController(IEmployeeServices employeeService)
+        public EmployeeController(IEmployeeServices employeeService, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
+            _logger = logger;
         }
 
         [HttpGet]
         public ActionResult<List<Employee>> GetAllEmployee()
         {
-            
-            return Ok(_employeeService.GetAllEmployees());
+            _logger.LogInformation("Fetching all employees");
+            var employees = _employeeService.GetAllEmployees();
+            if (employees == null)
+            {
+                _logger.LogWarning("No employees found!");
+            }
+            return Ok(employees);
         }
 
         //[HttpGet("by-id")]
