@@ -13,12 +13,11 @@ namespace WebApplicationPractice
             var builder = WebApplication.CreateBuilder(args);
 
             Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug() 
-    .WriteTo.Console()    
-    .WriteTo.File("logs/myapp.log", rollingInterval: RollingInterval.Day) 
-    .CreateLogger();
+                .ReadFrom.Configuration(builder.Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
 
-           
+
             builder.Host.UseSerilog();
 
             builder.Services.AddControllers();
