@@ -42,34 +42,43 @@ namespace WebApplicationPractice.Controllers
         [HttpGet("{id}")]
         public ActionResult<Employee> GetEmployeeById(int id)
         {
+            _logger.LogInformation($"Fetching Employee with Id {@id}");
             var emp = _employeeService.GetEmployeeById(id);
             if (emp == null)
+            {
+                _logger.LogWarning($"Id {id} is not a employee");
                 return NotFound("Employee not found");
+            }
 
+            _logger.LogInformation($"Employee Found with Id {@id}");
             return Ok(emp);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteEmployeeById(int id)
         {
+            _logger.LogInformation($"Fetching Employee with Id {@id}");
             var emp = _employeeService.DeleteEmployee(id);
             if(emp == false)
             {
+                _logger.LogWarning($"Id {id} is not a employee");
                 return BadRequest("Employee not found");
             }
-            
+            _logger.LogInformation($"Employee Found with Id {@id} and deleted");
             return Ok();
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateEmployeeById(int id, Employee e)
         {
+            _logger.LogInformation($"Fetching Employee with Id {@id}");
             var emp = _employeeService.UpdateEmployee(id, e);   
             if(emp == false)
             {
+                _logger.LogWarning($"Id {id} is not a employee");
                 return BadRequest("Employee Not Found");
             }
-      
+            _logger.LogInformation($"Employee Found with Id {@id} and updated");
             return Ok();
         }
 
@@ -77,6 +86,7 @@ namespace WebApplicationPractice.Controllers
         public ActionResult AddEmployee(Employee newEmployee)
         {
             var emp = _employeeService.AddEmployee(newEmployee);
+            _logger.LogInformation("New Employee Added");
             return Ok(emp);
         }
     }
