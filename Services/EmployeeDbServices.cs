@@ -1,7 +1,5 @@
 ﻿using WebApplicationPractice.Data;
 using WebApplicationPractice.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplicationPractice.Services
 {
