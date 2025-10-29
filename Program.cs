@@ -2,6 +2,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using StackExchange.Redis;
 using WebApplicationPractice.Data;
 using WebApplicationPractice.Services;
 
@@ -21,10 +22,14 @@ namespace WebApplicationPractice
 
 
             builder.Host.UseSerilog();
-
             builder.Services.AddControllers();
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379"; 
+                options.InstanceName = "EmployeeApp_";   
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IEmployeeServices , EmployeeDbServices>();
