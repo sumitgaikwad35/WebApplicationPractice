@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplicationPractice.Models;
-using Microsoft.Extensions.Logging;
-
 namespace WebApplicationPractice.Data
 {
     public class AppDbContext : DbContext
@@ -10,7 +8,6 @@ namespace WebApplicationPractice.Data
             : base(options)
         {
         }
-        // Define DbSets for your entities
         public DbSet<Employee> Employees { get; set; }
     }
 }
