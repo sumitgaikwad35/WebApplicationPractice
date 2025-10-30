@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 using WebApplicationPractice.Models;
@@ -8,6 +9,7 @@ namespace WebApplicationPractice.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeServices _employeeService;
@@ -70,7 +72,7 @@ namespace WebApplicationPractice.Controllers
                 var emp = JsonSerializer.Deserialize<Employee>(cachedData);
                 return Ok(emp);
             }
-
+            _logger.LogInformation($"Cache miss for employee {id}");
             var empFromService = _employeeService.GetEmployeeById(id);
             if (empFromService == null)
             {
