@@ -8,7 +8,7 @@ using System.Text;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly string _jwtKey = "YourSuperStrongSecretKeyWith256BitsSizeHere!!!";
+    private readonly string _jwtKey = "K9bR1zW8d5Q2yH0pM3tX7nE4vU6cZ9gL1sD5rF8jK0wP2aT4mN7yU3";
     private readonly string _issuer = "WebApplication";
     private readonly string _audience = "your-users";
 
