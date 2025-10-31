@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using StackExchange.Redis;
 using System.Text;
 using WebApplicationPractice.Data;
 using WebApplicationPractice.Services;
@@ -30,8 +29,8 @@ namespace WebApplicationPractice
 
             builder.Services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = "localhost:6379";
-                options.InstanceName = "EmployeeApp_";
+                options.Configuration = builder.Configuration["Redis:Configuration"];
+                options.InstanceName = builder.Configuration["Redis:InstanceName"];
             });
 
             builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +41,7 @@ namespace WebApplicationPractice
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            var jwtKey = "YourSuperStrongSecretKeyWith256BitsSizeHere!!!"; 
+            var jwtKey = "K9bR1zW8d5Q2yH0pM3tX7nE4vU6cZ9gL1sD5rF8jK0wP2aT4mN7yU3"; 
             var validIssuer = "WebApplication";
             var validAudience = "your-users";
 
