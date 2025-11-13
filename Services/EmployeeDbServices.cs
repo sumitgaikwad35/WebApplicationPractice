@@ -1,59 +1,41 @@
-﻿using WebApplicationPractice.Data;
-using WebApplicationPractice.Models;
+﻿using WebApplicationPractice.Models;
+using WebApplicationPractice.Repositories;
 
 namespace WebApplicationPractice.Services
 {
-    public class EmployeeDbServices : IEmployeeServices
+    public class EmployeeDbService : IEmployeeServices
     {
-        private readonly AppDbContext _context;
+        private readonly IEmployeeRepository _repository;
 
-        public EmployeeDbServices(AppDbContext context)
+        public EmployeeDbService(IEmployeeRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public List<Employee> GetAllEmployees()
         {
-            return _context.Employees.ToList();
+            return _repository.GetAll();
         }
 
         public Employee GetEmployeeById(int id)
         {
-            return _context.Employees.Find(id);
+            return _repository.GetById(id);
         }
 
         public Employee AddEmployee(Employee employee)
         {
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
-            return employee;
+            return _repository.Add(employee);
         }
 
         public bool UpdateEmployee(int id, Employee updated)
         {
-            var existing = _context.Employees.Find(id);
-            if (existing == null)
-                return false;
-
-            existing.Name = updated.Name;
-            existing.Email = updated.Email;
-            existing.Phone = updated.Phone;
-            existing.Salary = updated.Salary;
-            existing.DeptName = updated.DeptName;
-
-            _context.SaveChanges();
-            return true;
+            updated.Id = id;
+            return _repository.Update(updated);
         }
 
         public bool DeleteEmployee(int id)
         {
-            var emp = _context.Employees.Find(id);
-            if (emp == null)
-                return false;
-
-            _context.Employees.Remove(emp);
-            _context.SaveChanges();
-            return true;
+            return _repository.Delete(id);
         }
     }
 }
