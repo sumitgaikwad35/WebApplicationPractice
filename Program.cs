@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 using WebApplicationPractice.Data;
+using WebApplicationPractice.Repositories;
 using WebApplicationPractice.Services;
 
 namespace WebApplicationPractice
@@ -66,6 +67,7 @@ namespace WebApplicationPractice
                 });
             });
 
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeServices, EmployeeDbServices>();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
