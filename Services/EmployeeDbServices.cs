@@ -3,11 +3,11 @@ using WebApplicationPractice.Repositories;
 
 namespace WebApplicationPractice.Services
 {
-    public class EmployeeDbService : IEmployeeServices
+    public class EmployeeDbServices : IEmployeeServices
     {
         private readonly IEmployeeRepository _repository;
 
-        public EmployeeDbService(IEmployeeRepository repository)
+        public EmployeeDbServices(IEmployeeRepository repository)
         {
             _repository = repository;
         }
